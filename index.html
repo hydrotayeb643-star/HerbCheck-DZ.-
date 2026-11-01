@@ -1,57 +1,55 @@
-<!doctype html>
+
+  <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#176b52">
 <title>HerbCheck DZ 3.0</title>
-<link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{--green:#176b52;--pale:#eaf4ef;--ink:#19332a;--muted:#66776f;--line:#dce7e1;--bg:#f5f8f6;--red:#a33b35;--amber:#8b5a12}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 header{background:var(--green);color:white;padding:18px 16px}header .wrap,main{max-width:1100px;margin:auto}
-h1{font-size:22px;margin:0 0 5px}header p{margin:0;opacity:.9;font-size:13px}
-main{padding:16px}.top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
+h1{font-size:22px;margin:0 0 5px}header p{margin:0;opacity:.9;font-size:13px}main{padding:16px}
+.top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
 .card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px #163c2810}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.stat{background:var(--pale);border-radius:12px;padding:13px}.stat b{font-size:24px;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.stat{background:var(--pale);border-radius:12px;padding:13px}.stat b{font-size:24px;display:block}
 label{display:block;font-size:13px;color:var(--muted);margin:9px 0 5px}
 input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:white;font:inherit;color:var(--ink)}
 button{border:0;border-radius:9px;padding:10px 14px;background:var(--green);color:white;font:inherit;cursor:pointer}
 button.secondary{background:var(--pale);color:var(--green);border:1px solid var(--line)}
-button.danger{background:#f8e9e7;color:var(--red)}
 .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tabs button.active{background:#123f32}
 table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:right;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted)}
 .note{font-size:12px;color:var(--muted);line-height:1.7}.alert{padding:10px;border-radius:9px;background:#fff3df;color:var(--amber);margin:7px 0;font-size:13px}
-.good{background:#eaf4ef;color:var(--green)}.bad{background:#f8e9e7;color:var(--red)}
-.hidden{display:none!important}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
-.login{max-width:430px;margin:30px auto}.pill{font-size:11px;border-radius:30px;padding:4px 8px;background:var(--pale);color:var(--green)}
-footer{max-width:1100px;margin:10px auto;padding:10px 16px 28px;color:var(--muted);font-size:12px}
+.good{background:#eaf4ef;color:var(--green)}.hidden{display:none!important}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
+.login{max-width:430px;margin:30px auto}footer{max-width:1100px;margin:10px auto;padding:10px 16px 28px;color:var(--muted);font-size:12px}
 @media(max-width:600px){main{padding:10px}.card{padding:12px}table{display:block;overflow:auto;white-space:nowrap}}
-</style></head>
+</style>
+</head>
 <body>
 <header><div class="wrap"><h1>HerbCheck DZ <span style="font-size:13px">3.0</span></h1><p>منصة متابعة مخزون الأعشاب الطبية وظروف تخزينها</p></div></header>
 <main>
-<section id="login" class="card login">
+<section id="loginPanel" class="card login">
 <h2>تسجيل الدخول التجريبي</h2>
-<p class="note">هذه نسخة عرض محلية. استخدم أحد الحسابين التجريبيين أدناه لاختبار صلاحيات العطّار والإدارة.</p>
-<label>البريد الإلكتروني</label><input id="email" type="email" value="attar1@herbcheck.dz">
-<label>كلمة المرور</label><input id="password" type="password" value="demo123">
-<div class="row" style="margin-top:14px"><button onclick="login()">دخول</button><button class="secondary" onclick="fillAdmin()">حساب الإدارة</button></div>
-<p id="loginmsg" class="note"></p>
-<p class="note">عطّار: attar1@herbcheck.dz / demo123<br>إدارة: admin@herbcheck.dz / admin123</p>
+<p class="note">نسخة عرض تجريبية. استخدم أحد الحسابين أدناه لاختبار صلاحيات العطار والإدارة.</p>
+<label>البريد الإلكتروني</label><input id="email" type="email" value="attar1@herbcheck.dz" autocomplete="username">
+<label>كلمة المرور</label><input id="password" type="password" value="demo123" autocomplete="current-password">
+<div class="row" style="margin-top:14px"><button type="button" onclick="handleLogin()">دخول</button><button type="button" class="secondary" onclick="fillAdmin()">حساب الإدارة</button></div>
+<p id="loginmsg" class="note" aria-live="polite"></p>
+<p class="note">عطار: attar1@herbcheck.dz / demo123<br>إدارة: admin@herbcheck.dz / admin123</p>
 </section>
 <section id="app" class="hidden">
-<div class="top"><div><b id="welcome"></b><div class="note" id="rolelabel"></div></div><button class="secondary" onclick="logout()">تسجيل الخروج</button></div>
+<div class="top"><div><b id="welcome"></b><div class="note" id="rolelabel"></div></div><button class="secondary" type="button" onclick="logout()">تسجيل الخروج</button></div>
 <div class="tabs" id="tabs"></div>
-<section id="dashboard" class="view"></section>
-<section id="stock" class="view hidden"></section>
-<section id="logs" class="view hidden"></section>
-<section id="admin" class="view hidden"></section>
+<section id="dashboard" class="view"></section><section id="stock" class="view hidden"></section>
+<section id="logs" class="view hidden"></section><section id="admin" class="view hidden"></section>
 <section id="sources" class="view hidden"></section>
 </section>
 </main>
 <footer>HerbCheck DZ 3.0 — نموذج أولي توضيحي. لا يقيس الهاتف الحرارة أو الرطوبة، ولا يصدر شهادة جودة أو تشخيصًا مخبريًا.</footer>
 <script>
+"use strict";
+const $ = id => document.getElementById(id);
 const herbs=[
 ["النعناع الفلفلي","Mentha × piperita L.","الأوراق"],
 ["البابونج الألماني","Matricaria chamomilla L.","الرؤوس الزهرية"],
@@ -60,35 +58,104 @@ const herbs=[
 ["المريمية","Salvia officinalis L.","الأوراق"]
 ];
 const users=[
-{id:"u1",name:"محل الأعشاب التجريبي الأول",email:"attar1@herbcheck.dz",pass:"demo123",role:"attar",shop:"محل العطار الأول"},
-{id:"a1",name:"مدير المنصة",email:"admin@herbcheck.dz",pass:"admin123",role:"admin",shop:"الإدارة المركزية"}
+{id:"u1",name:"محل الأعشاب التجريبي الأول",email:"attar1@herbcheck.dz",pass:"demo123",role:"attar"},
+{id:"a1",name:"مدير المنصة",email:"admin@herbcheck.dz",pass:"admin123",role:"admin"}
 ];
-let db=JSON.parse(localStorage.getItem("hc3db")||"null")||{
+const defaultDB={
 shops:[{id:"s1",name:"محل العطار الأول",owner:"u1",city:"الجزائر"}],
 lots:[{id:1,shop:"s1",herb:0,qty:5,unit:"كغ",date:"2026-10-20",batch:"P-001",pack:"كيس محكم"}],
 logs:[{id:1,shop:"s1",lot:1,date:"2026-10-31",temp:"22",humidity:"48",light:"بعيد عن الضوء المباشر",vent:"جيدة",pack:"سليمة",signs:"لا توجد ملاحظات"}],
-sources:[{title:"وكالة الأدوية الأوروبية EMA — مونوغرافات النباتات الطبية",note:"مرجع مؤسسي للمراجعة العلمية؛ يجب التحقق من النسخة والتاريخ والنص الخاص بكل نبات قبل اعتماد أي توصية."}]
+sources:[{title:"وكالة الأدوية الأوروبية EMA — مونوغرافات النباتات الطبية",note:"مرجع للمراجعة العلمية؛ تحقق من النسخة والتاريخ والنص الخاص بكل نبات قبل اعتماد أي توصية."}]
 };
-let current=null;
-function save(){localStorage.setItem("hc3db",JSON.stringify(db))}
-function fillAdmin(){email.value="admin@herbcheck.dz";password.value="admin123"}
-function login(){let u=users.find(x=>x.email===email.value.trim()&&x.pass===password.value);if(!u){loginmsg.textContent="بيانات الدخول غير صحيحة.";return}current=u;login.classList.add("hidden");app.classList.remove("hidden");welcome.textContent=u.name;rolelabel.textContent=u.role==="admin"?"صلاحية الإدارة المركزية":"حساب عطّار مستقل";renderTabs();show("dashboard")}
-function logout(){current=null;app.classList.add("hidden");login.classList.remove("hidden")}
-function myShop(){return db.shops.find(s=>s.owner===current.id)}
-function visibleLots(){return current.role==="admin"?db.lots:db.lots.filter(x=>x.shop===myShop()?.id)}
-function renderTabs(){let items=[["dashboard","لوحة المعلومات"],["stock","المخزون"],["logs","سجل ظروف التخزين"],["sources","المراجع العلمية"]];if(current.role==="admin")items.push(["admin","إدارة المحلات"]);tabs.innerHTML=items.map(([id,t])=>`<button class="${id==='dashboard'?'active':'secondary'}" onclick="show('${id}')">${t}</button>`).join("")}
-function show(id){document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");tabs.querySelectorAll("button").forEach(b=>{b.classList.toggle("active",b.textContent===({dashboard:"لوحة المعلومات",stock:"المخزون",logs:"سجل ظروف التخزين",sources:"المراجع العلمية",admin:"إدارة المحلات"}[id]));b.classList.toggle("secondary",!b.classList.contains("active"))});({dashboard:drawDash,stock:drawStock,logs:drawLogs,sources:drawSources,admin:drawAdmin}[id])()}
-function shopName(id){return db.shops.find(s=>s.id===id)?.name||"—"}
-function drawDash(){let lots=visibleLots(),logs=current.role==="admin"?db.logs:db.logs.filter(x=>x.shop===myShop()?.id);let warnings=logs.filter(x=>/عفن|حشرات|رطوب|تغير|تلف/i.test(x.signs+" "+x.pack));dashboard.innerHTML=`<div class="grid"><div class="stat"><span>دفعات المخزون</span><b>${lots.length}</b></div><div class="stat"><span>سجلات التخزين</span><b>${logs.length}</b></div><div class="stat"><span>ملاحظات تحتاج مراجعة</span><b>${warnings.length}</b></div><div class="stat"><span>النباتات في الدليل</span><b>${herbs.length}</b></div></div><div class="card" style="margin-top:14px"><h3>تنبيهات تشغيلية</h3>${warnings.length?warnings.map(w=>`<div class="alert">راجع سجل الدفعة رقم ${w.lot}: ${esc(w.signs||w.pack)}</div>`).join(""):'<div class="alert good">لا توجد ملاحظات مسجلة تستدعي تنبيهًا آليًا حاليًا.</div>'}<p class="note">التنبيه مبني على النصوص المدخلة يدويًا، ولا يمثل تقييمًا مخبريًا أو شهادة سلامة.</p></div><div class="card"><h3>دليل النباتات</h3><div class="grid">${herbs.map(h=>`<div><b>${h[0]}</b><div class="note">${h[1]}<br>الجزء: ${h[2]}</div></div>`).join("")}</div></div>`}
-function drawStock(){let lots=visibleLots();stock.innerHTML=`<div class="card"><h3>إضافة دفعة مخزون</h3><div class="row"><div><label>النبات</label><select id="herb">${herbs.map((h,i)=>`<option value="${i}">${h[0]}</option>`)}</select></div><div><label>الكمية</label><input id="qty" type="number" min="0" step=".1" placeholder="مثلاً 4"></div><div><label>الوحدة</label><select id="unit"><option>كغ</option><option>غ</option><option>عبوة</option></select></div></div><div class="row"><div><label>رقم الدفعة</label><input id="batch" placeholder="مثلاً TH-002"></div><div><label>تاريخ الاستلام</label><input id="date" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div><label>نوع التغليف</label><input id="pack" placeholder="كيس محكم / علبة..."></div></div><button onclick="addLot()">حفظ الدفعة</button></div><div class="card"><h3>قائمة الدفعات</h3><table><thead><tr><th>المحل</th><th>النبات</th><th>الدفعة</th><th>الكمية</th><th>التاريخ</th><th></th></tr></thead><tbody>${lots.map(l=>`<tr><td>${shopName(l.shop)}</td><td>${herbs[l.herb][0]}</td><td>${esc(l.batch)}</td><td>${l.qty} ${l.unit}</td><td>${l.date}</td><td><button class="secondary" onclick="selectLot(${l.id})">تسجيل ظروف</button></td></tr>`).join("")}</tbody></table></div>`}
-function addLot(){let q=Number(document.getElementById("qty").value);if(!(q>0)){alert("أدخل كمية صحيحة");return}let s=current.role==="admin"?db.shops[0]:myShop();db.lots.push({id:Date.now(),shop:s.id,herb:+herb.value,qty:q,unit:unit.value,date:date.value,batch:batch.value,pack:pack.value});save();drawStock()}
-function selectLot(id){show("logs");document.getElementById("loglot").value=id}
-function drawLogs(){let logs=current.role==="admin"?db.logs:db.logs.filter(x=>x.shop===myShop()?.id);let lots=visibleLots();logs.innerHTML=`<div class="card"><h3>إضافة سجل ظروف التخزين</h3><label>دفعة المخزون</label><select id="loglot">${lots.map(l=>`<option value="${l.id}">#${l.id} — ${herbs[l.herb][0]} (${l.batch})</option>`).join("")}</select><div class="row"><div><label>درجة الحرارة °C (قياس خارجي)</label><input id="temp" type="number" step=".1"></div><div><label>الرطوبة النسبية % (قياس خارجي)</label><input id="humidity" type="number" step=".1"></div><div><label>تاريخ التسجيل</label><input id="logdate" type="date" value="${new Date().toISOString().slice(0,10)}"></div></div><div class="row"><div><label>التعرض للضوء</label><select id="light"><option>بعيد عن الضوء المباشر</option><option>ضوء مباشر</option><option>إضاءة داخلية</option></select></div><div><label>التهوية</label><select id="vent"><option>جيدة</option><option>متوسطة</option><option>ضعيفة</option></select></div><div><label>حالة التغليف</label><select id="packstate"><option>سليمة</option><option>متضررة</option><option>رطبة</option><option>متسخة</option></select></div></div><label>ملاحظات مرئية أو رائحة غير معتادة</label><textarea id="signs" rows="2" placeholder="لا توجد ملاحظات / رائحة أو تغير لون / اشتباه عفن..."></textarea><button onclick="addLog()">حفظ سجل الظروف</button><p class="note">يجب قياس الحرارة والرطوبة بأجهزة خارجية وإدخال القيم يدويًا. الرطوبة النسبية للهواء ليست قياسًا لمحتوى الرطوبة داخل العشبة.</p></div><div class="card"><h3>السجل التاريخي</h3><table><thead><tr><th>التاريخ</th><th>الدفعة</th><th>حرارة</th><th>رطوبة نسبية</th><th>التهوية</th><th>التغليف</th><th>ملاحظات</th></tr></thead><tbody>${logs.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>#${x.lot}</td><td>${x.temp||"—"}</td><td>${x.humidity||"—"}</td><td>${x.vent}</td><td>${x.pack}</td><td>${esc(x.signs)}</td></tr>`).join("")}</tbody></table></div>`}
-function addLog(){let lot=visibleLots().find(l=>l.id===+loglot.value);if(!lot)return;db.logs.push({id:Date.now(),shop:lot.shop,lot:lot.id,date:logdate.value,temp:temp.value,humidity:humidity.value,light:light.value,vent:vent.value,pack:packstate.value,signs:signs.value});save();drawLogs()}
-function drawAdmin(){admin.innerHTML=`<div class="card"><h3>إضافة محل عطارة جديد</h3><div class="row"><div><label>اسم المحل</label><input id="shopname" placeholder="اسم المحل"></div><div><label>اسم صاحب الحساب</label><input id="ownername" placeholder="اسم المستخدم"></div><div><label>البريد الإلكتروني</label><input id="owneremail" type="email" placeholder="email@example.com"></div><div><label>كلمة مرور تجريبية</label><input id="ownerpass" placeholder="كلمة مرور"></div><div><label>الولاية / المدينة</label><input id="city" placeholder="الجزائر"></div></div><button onclick="addShop()">إنشاء حساب تجريبي</button></div><div class="card"><h3>المحلات المسجلة في النموذج</h3><table><thead><tr><th>المحل</th><th>المدينة</th><th>الدفعات</th><th>سجلات التخزين</th><th>البريد</th></tr></thead><tbody>${db.shops.map(s=>{let u=users.find(x=>x.id===s.owner);return `<tr><td>${esc(s.name)}</td><td>${esc(s.city)}</td><td>${db.lots.filter(l=>l.shop===s.id).length}</td><td>${db.logs.filter(l=>l.shop===s.id).length}</td><td>${u?.email||"حساب تجريبي"}</td></tr>`}).join("")}</tbody></table><p class="note">في هذا النموذج، إنشاء الحساب يضيفه إلى بيانات الجهاز فقط. المصادقة الفعلية وإرسال دعوات آمنة تتطلب ربط قاعدة بيانات وخدمة هوية سحابية.</p></div><div class="card"><h3>تصدير نسخة احتياطية</h3><button onclick="exportData()">تنزيل بيانات JSON</button> <button class="secondary" onclick="print()">طباعة / حفظ PDF</button></div>`}
-function addShop(){let n=shopname.value.trim(),e=owneremail.value.trim(),p=ownerpass.value.trim();if(!n||!e||p.length<6){alert("أدخل اسم المحل والبريد وكلمة مرور من 6 أحرف على الأقل");return}if(users.some(u=>u.email===e)){alert("البريد مستخدم في النموذج");return}let id="u"+Date.now(),sid="s"+Date.now();users.push({id,name:ownername.value||n,email:e,pass:p,role:"attar",shop:n});db.shops.push({id:sid,name:n,owner:id,city:city.value});save();drawAdmin();alert("أُنشئ الحساب محليًا على هذا الجهاز فقط.")}
-function drawSources(){sources.innerHTML=`<div class="card"><h3>سجل المراجع العلمية</h3><p class="note">أضف المراجع التي راجعتها فعليًا. لا تعتمد أرقام المراجع وحدها دون التحقق من عنوان الوثيقة وإصدارها وتاريخها.</p><label>عنوان المرجع</label><input id="sourcetitle" placeholder="اسم الجهة، عنوان الوثيقة، السنة..."><label>ملاحظات / رابط مرجعي</label><textarea id="sourcenote" rows="2"></textarea><button onclick="addSource()">إضافة مرجع</button></div><div class="card">${db.sources.map(s=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(s.title)}</b><p class="note">${esc(s.note)}</p></div>`).join("")}</div>`}
-function addSource(){if(!sourcetitle.value.trim())return;db.sources.push({title:sourcetitle.value,note:sourcenote.value});save();drawSources()}
-function exportData(){let blob=new Blob([JSON.stringify({shops:db.shops,lots:db.lots,logs:db.logs,sources:db.sources},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="herbcheck-dz-backup.json";a.click();URL.revokeObjectURL(a.href)}
-function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-</script></body></html>
+function loadDB(){
+ try { const saved=localStorage.getItem("hc3db"); return saved?{...defaultDB,...JSON.parse(saved)}:structuredClone(defaultDB); }
+ catch(e){ console.warn("تعذر قراءة البيانات المحفوظة",e); return structuredClone(defaultDB); }
+}
+let db=loadDB(), current=null;
+function save(){try{localStorage.setItem("hc3db",JSON.stringify(db));}catch(e){alert("تعذر حفظ البيانات في هذا المتصفح. تحقق من مساحة التخزين أو إعدادات الخصوصية.");}}
+function fillAdmin(){$("email").value="admin@herbcheck.dz";$("password").value="admin123";$("loginmsg").textContent="تم إدراج بيانات حساب الإدارة التجريبي.";}
+function handleLogin(){
+ const e=$("email").value.trim().toLowerCase(), p=$("password").value;
+ const u=users.find(x=>x.email.toLowerCase()===e && x.pass===p);
+ if(!u){$("loginmsg").textContent="بيانات الدخول غير صحيحة.";return;}
+ current=u;$("loginPanel").classList.add("hidden");$("app").classList.remove("hidden");
+ $("welcome").textContent=u.name;$("rolelabel").textContent=u.role==="admin"?"صلاحية الإدارة المركزية":"حساب عطار تجريبي";
+ renderTabs();showView("dashboard");
+}
+function logout(){current=null;$("app").classList.add("hidden");$("loginPanel").classList.remove("hidden");$("password").value="";$("loginmsg").textContent="تم تسجيل الخروج.";}
+function myShop(){return db.shops.find(s=>s.owner===current?.id);}
+function visibleLots(){return current.role==="admin"?db.lots:db.lots.filter(x=>x.shop===myShop()?.id);}
+function shopName(id){return db.shops.find(s=>s.id===id)?.name||"—";}
+function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function renderTabs(){
+ let items=[["dashboard","لوحة المعلومات"],["stock","المخزون"],["logs","سجل ظروف التخزين"],["sources","المراجع العلمية"]];
+ if(current.role==="admin")items.push(["admin","إدارة المحلات"]);
+ $("tabs").innerHTML=items.map(([id,t])=>`<button type="button" data-view="${id}" class="${id==="dashboard"?"active": "secondary"}" onclick="showView('${id}')">${t}</button>`).join("");
+}
+function showView(id){
+ document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));
+ $(id).classList.remove("hidden");
+ $("tabs").querySelectorAll("button").forEach(b=>{let active=b.dataset.view===id;b.classList.toggle("active",active);b.classList.toggle("secondary",!active);});
+ const renderers={dashboard:drawDash,stock:drawStock,logs:drawLogs,sources:drawSources,admin:drawAdmin};
+ if(renderers[id])renderers[id]();
+}
+function drawDash(){
+ let lots=visibleLots(), records=current.role==="admin"?db.logs:db.logs.filter(x=>x.shop===myShop()?.id);
+ let warnings=records.filter(x=>/عفن|حشرات|رطوب|تغير|تلف/i.test((x.signs||"")+" "+(x.pack||"")));
+ $("dashboard").innerHTML=`<div class="grid"><div class="stat">دفعات المخزون<b>${lots.length}</b></div><div class="stat">سجلات التخزين<b>${records.length}</b></div><div class="stat">ملاحظات تحتاج مراجعة<b>${warnings.length}</b></div><div class="stat">النباتات في الدليل<b>${herbs.length}</b></div></div>
+ <div class="card" style="margin-top:14px"><h3>تنبيهات تشغيلية</h3>${warnings.length?warnings.map(w=>`<div class="alert">راجع سجل الدفعة رقم ${w.lot}: ${esc(w.signs||w.pack)}</div>`).join(""):'<div class="alert good">لا توجد ملاحظات مسجلة تستدعي تنبيهًا آليًا حاليًا.</div>'}<p class="note">التنبيه مبني على النصوص المدخلة يدويًا، ولا يمثل تقييمًا مخبريًا أو شهادة سلامة.</p></div>
+ <div class="card"><h3>دليل النباتات</h3><div class="grid">${herbs.map(h=>`<div><b>${h[0]}</b><div class="note">${h[1]}<br>الجزء: ${h[2]}</div></div>`).join("")}</div></div>`;
+}
+function drawStock(){
+ let lots=visibleLots();
+ $("stock").innerHTML=`<div class="card"><h3>إضافة دفعة مخزون</h3><div class="row"><div><label>النبات</label><select id="herbSelect">${herbs.map((h,i)=>`<option value="${i}">${h[0]}</option>`).join("")}</select></div><div><label>الكمية</label><input id="qty" type="number" min="0" step=".1" placeholder="مثلاً 4"></div><div><label>الوحدة</label><select id="unit"><option>كغ</option><option>غ</option><option>عبوة</option></select></div></div>
+ <div class="row"><div><label>رقم الدفعة</label><input id="batch" placeholder="مثلاً TH-002"></div><div><label>تاريخ الاستلام</label><input id="lotDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div><label>نوع التغليف</label><input id="lotPack" placeholder="كيس محكم / علبة..."></div></div><button type="button" onclick="addLot()">حفظ الدفعة</button></div>
+ <div class="card"><h3>قائمة الدفعات</h3><table><thead><tr><th>المحل</th><th>النبات</th><th>الدفعة</th><th>الكمية</th><th>التاريخ</th><th></th></tr></thead><tbody>${lots.map(l=>`<tr><td>${shopName(l.shop)}</td><td>${herbs[l.herb]?.[0]||"—"}</td><td>${esc(l.batch)}</td><td>${l.qty} ${esc(l.unit)}</td><td>${esc(l.date)}</td><td><button type="button" class="secondary" onclick="selectLot(${l.id})">تسجيل ظروف</button></td></tr>`).join("")}</tbody></table></div>`;
+}
+function addLot(){
+ let q=Number($("qty").value), s=current.role==="admin"?db.shops[0]:myShop();
+ if(!(q>0)||!s){alert("أدخل كمية صحيحة وتأكد من وجود محل مرتبط بالحساب.");return;}
+ db.lots.push({id:Date.now(),shop:s.id,herb:Number($("herbSelect").value),qty:q,unit:$("unit").value,date:$("lotDate").value,batch:$("batch").value.trim(),pack:$("lotPack").value.trim()});
+ save();drawStock();drawDash();alert("تم حفظ الدفعة.");
+}
+function selectLot(id){showView("logs");const sel=$("loglot");if(sel)sel.value=String(id);}
+function drawLogs(){
+ const records=current.role==="admin"?db.logs:db.logs.filter(x=>x.shop===myShop()?.id), lots=visibleLots();
+ $("logs").innerHTML=`<div class="card"><h3>إضافة سجل ظروف التخزين</h3><label>دفعة المخزون</label><select id="loglot">${lots.map(l=>`<option value="${l.id}">#${l.id} — ${herbs[l.herb]?.[0]||"نبات"} (${esc(l.batch)})</option>`).join("")}</select>
+ <div class="row"><div><label>درجة الحرارة °C (قياس خارجي)</label><input id="temp" type="number" step=".1"></div><div><label>الرطوبة النسبية % (قياس خارجي)</label><input id="humidity" type="number" step=".1"></div><div><label>تاريخ التسجيل</label><input id="logdate" type="date" value="${new Date().toISOString().slice(0,10)}"></div></div>
+ <div class="row"><div><label>التعرض للضوء</label><select id="light"><option>بعيد عن الضوء المباشر</option><option>ضوء مباشر</option><option>إضاءة داخلية</option></select></div><div><label>التهوية</label><select id="vent"><option>جيدة</option><option>متوسطة</option><option>ضعيفة</option></select></div><div><label>حالة التغليف</label><select id="packstate"><option>سليمة</option><option>متضررة</option><option>رطبة</option><option>متسخة</option></select></div></div>
+ <label>ملاحظات مرئية أو رائحة غير معتادة</label><textarea id="signs" rows="2" placeholder="لا توجد ملاحظات / رائحة أو تغير لون / اشتباه عفن..."></textarea><button type="button" onclick="addLog()">حفظ سجل الظروف</button>
+ <p class="note">يجب قياس الحرارة والرطوبة بأجهزة خارجية وإدخال القيم يدويًا. الرطوبة النسبية للهواء ليست قياسًا لمحتوى الرطوبة داخل العشبة.</p></div>
+ <div class="card"><h3>السجل التاريخي</h3><table><thead><tr><th>التاريخ</th><th>الدفعة</th><th>حرارة</th><th>رطوبة نسبية</th><th>التهوية</th><th>التغليف</th><th>ملاحظات</th></tr></thead><tbody>${records.slice().reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>#${x.lot}</td><td>${esc(x.temp||"—")}</td><td>${esc(x.humidity||"—")}</td><td>${esc(x.vent)}</td><td>${esc(x.pack)}</td><td>${esc(x.signs)}</td></tr>`).join("")}</tbody></table></div>`;
+}
+function addLog(){
+ const lot=visibleLots().find(l=>l.id===Number($("loglot").value));if(!lot){alert("أضف دفعة مخزون أولاً.");return;}
+ db.logs.push({id:Date.now(),shop:lot.shop,lot:lot.id,date:$("logdate").value,temp:$("temp").value,humidity:$("humidity").value,light:$("light").value,vent:$("vent").value,pack:$("packstate").value,signs:$("signs").value.trim()});
+ save();drawLogs();drawDash();alert("تم حفظ سجل ظروف التخزين.");
+}
+function drawAdmin(){
+ $("admin").innerHTML=`<div class="card"><h3>إضافة محل عطارة جديد</h3><div class="row"><div><label>اسم المحل</label><input id="shopname" placeholder="اسم المحل"></div><div><label>اسم صاحب الحساب</label><input id="ownername" placeholder="اسم المستخدم"></div><div><label>البريد الإلكتروني</label><input id="owneremail" type="email" placeholder="email@example.com"></div><div><label>كلمة مرور تجريبية</label><input id="ownerpass" type="password" placeholder="كلمة مرور"></div><div><label>الولاية / المدينة</label><input id="city" placeholder="الجزائر"></div></div><button type="button" onclick="addShop()">إنشاء حساب تجريبي</button></div>
+ <div class="card"><h3>المحلات المسجلة في هذا النموذج</h3><table><thead><tr><th>المحل</th><th>المدينة</th><th>الدفعات</th><th>السجلات</th><th>البريد</th></tr></thead><tbody>${db.shops.map(s=>{let u=users.find(x=>x.id===s.owner);return `<tr><td>${esc(s.name)}</td><td>${esc(s.city)}</td><td>${db.lots.filter(l=>l.shop===s.id).length}</td><td>${db.logs.filter(l=>l.shop===s.id).length}</td><td>${esc(u?.email||"حساب محلي")}</td></tr>`}).join("")}</tbody></table>
+ <p class="note">تنبيه: هذه حسابات تجريبية محفوظة في متصفح هذا الجهاز فقط، وليست مصادقة سحابية أو نظامًا آمنًا متعدد المستخدمين.</p></div>
+ <div class="card"><h3>تصدير نسخة احتياطية</h3><button type="button" onclick="exportData()">تنزيل بيانات JSON</button> <button type="button" class="secondary" onclick="window.print()">طباعة / حفظ PDF</button></div>`;
+}
+function addShop(){
+ const n=$("shopname").value.trim(),e=$("owneremail").value.trim().toLowerCase(),p=$("ownerpass").value.trim();
+ if(!n||!e||p.length<6){alert("أدخل اسم المحل والبريد وكلمة مرور من 6 أحرف على الأقل.");return;}
+ if(users.some(u=>u.email.toLowerCase()===e)){alert("البريد مستخدم في النموذج.");return;}
+ const id="u"+Date.now(),sid="s"+Date.now();
+ users.push({id,name:$("ownername").value.trim()||n,email:e,pass:p,role:"attar"});
+ db.shops.push({id:sid,name:n,owner:id,city:$("city").value.trim()});save();drawAdmin();alert("أُنشئ الحساب محليًا على هذا الجهاز فقط.");
+}
+function drawSources(){
+ $("sources").innerHTML=`<div class="card"><h3>سجل المراجع العلمية</h3><p class="note">أضف المراجع التي راجعتها فعليًا، وتحقق من بيانات كل وثيقة قبل اعتمادها.</p><label>عنوان المرجع</label><input id="sourcetitle" placeholder="اسم الجهة، عنوان الوثيقة، السنة..."><label>ملاحظات / رابط مرجعي</label><textarea id="sourcenote" rows="2"></textarea><button type="button" onclick="addSource()">إضافة مرجع</button></div>
+ <div class="card">${db.sources.map(s=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(s.title)}</b><p class="note">${esc(s.note)}</p></div>`).join("")}</div>`;
+}
+function addSource(){const title=$("sourcetitle").value.trim();if(!title)return;db.sources.push({title,note:$("sourcenote").value.trim()});save();drawSources();alert("تمت إضافة المرجع.");}
+function exportData(){
+ const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="herbcheck-dz-backup.json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+</script>
+</body>
+  </html>
